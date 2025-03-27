@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="median" class="com.lgy.spring_ex3_8.Median"></bean>
+	<bean id="myMedian" class="com.lgy.spring_ex3_8.MyMedian">
+	<property name="median">
+	<ref bean="median"/>
+	</property>
+	<property name="num1" value="20"></property>
+	<property name="num2" value="100"></property>
+	<property name="num3" value="33"></property>
+	</bean>
+
+
+</beans>

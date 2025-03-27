@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="evenNumber" class="com.lgy.spring_ex3_9.EvenNumber"></bean>
+	<bean id="myEvenNumber" class="com.lgy.spring_ex3_9.MyEvenNumber">
+	<property name="evenNumber">
+	<ref bean="evenNumber"/>
+	</property>
+	<property name="number" value="10"></property>
+	</bean>
+
+
+</beans>
