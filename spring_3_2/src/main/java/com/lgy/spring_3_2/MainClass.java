@@ -14,7 +14,7 @@ public class MainClass
 //		myCalculator.setSecondNum(2);
 //		
 //		classpath 로 xml 객체 정보를 읽어서 configLoc 변수에 저장
-		String configLoc = "classpath: applicationCTX.xml";
+		String configLoc = "classpath:applicationCTX.xml";
 //		GenericApplicationContext : 클래스로 객체정보 파싱(해석)
 //		업캐스팅으로 ctx 참조변수로 받음
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLoc);

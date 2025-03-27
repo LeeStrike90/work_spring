@@ -3,7 +3,8 @@ package com.lgy.spring_ex5_1;
 public class Circle {
     private int radius;
 
-    public Circle(int radius) {
+    public Circle(int radius) 
+    {
         this.radius = radius;
     }
 

@@ -23,27 +23,27 @@ public class MyCalculator
 		calculator.division(firstNum, secondNum);
 	}
 	
-	Calculator getCalculator()
+	public Calculator getCalculator()
 	{
 		return calculator;
 	}
-	void setCalculator(Calculator calculator)
+	public void setCalculator(Calculator calculator)
 	{
 		this.calculator = calculator;
 	}
-	int getFirstNum()
+	public int getFirstNum()
 	{
 		return firstNum;
 	}
-	void setFirstNum(int firstNum)
+	public void setFirstNum(int firstNum)
 	{
 		this.firstNum = firstNum;
 	}
-	int getSecondNum()
+	public int getSecondNum()
 	{
 		return secondNum;
 	}
-	void setSecondNum(int secondNum)
+	public void setSecondNum(int secondNum)
 	{
 		this.secondNum = secondNum;
 	}

@@ -6,14 +6,14 @@
 <!-- 		Calculator 클래스로 calculator 객체 생성 -->
 	<bean id="calculator" class="com.lgy.spring_3_2.Calculator"></bean>
 	
+<!-- 	myCalculator 클래스로 myCalculator 객체 생성 -->
 	<bean id="myCalculator" class="com.lgy.spring_3_2.MyCalculator">
-	<property name="">
-<!-- 	bean id="calculator" 객체임 -->
-		<ref bean ="calculator"/>
+<!-- 	setCalculator 호출 -->
+	<property name="calculator">
+<!-- 			<bean id ="calculator" 객체임 -->
+		<ref bean="calculator"/>
 	</property>
-<!-- 	setFirstNum 호출 -->
-	<property name="" value="10"></property>	
-	<property name="" value="10"></property>	
+	<property name="firstNum" value="10"></property>
+	<property name="secondNum" value="2"></property>
 	</bean>
-
 </beans>
