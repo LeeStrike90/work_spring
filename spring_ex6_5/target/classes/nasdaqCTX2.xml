@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="nasdaq3" class="com.lgy.spring_ex6_5.Nasdaq">
+		<constructor-arg value="Nvidia"></constructor-arg>
+			<property name="caprank" value="7"></property>
+			<property name="product">
+				<list>
+					<value>RTX3080</value>
+					<value>RTX2080</value>
+				</list>
+			</property>
+	</bean>
+
+</beans>

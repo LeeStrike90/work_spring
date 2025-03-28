@@ -13,7 +13,7 @@
 			<value>5</value>
 		</constructor-arg>
 	</bean>
-	<bean id="circleInfo" class="com.lgy.spring_ex5_1.Circle">
+	<bean id="circleInfo" class="com.lgy.spring_ex5_1.CircleInfo">
 		<constructor-arg>
 			<ref bean="circle1"/>
 		</constructor-arg>
