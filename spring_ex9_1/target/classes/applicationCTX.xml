@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
+	<bean id="logAop" class="com.lgy.spring_ex9_1.LogAop"></bean>
+	<bean id="car" class="com.lgy.spring_ex9_1.Car">
+		<property name="company" value="테슬라"></property>
+		<property name="capRank" value="6"></property>
+		<property name="product" value="모델S"></property>
+	</bean>
+	<bean id="graphic" class="com.lgy.spring_ex9_1.Graphic">
+		<property name="company" value="엔비디아"></property>
+		<property name="capRank" value="7"></property>
+	</bean>
+</beans>

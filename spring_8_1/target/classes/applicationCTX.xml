@@ -4,18 +4,22 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
 	<bean id="logAop" class="com.lgy.spring_8_1.LogAop"></bean>
 	
-	<!--aop :config : aop 설정  -->
+	<!-- 	aop:config : aop 설정 -->
 	<aop:config>
-	<!-- aop:aspect :공통기능 -->
-		<aop:aspect id="longger" ref="logAop">
-			<!-- aop:pointcut: 핵심기능에 적용되는 부분(공통기능이 ->) -->
-			<!-- com.lgy.spring_8_1.*: 패키지 안에 클래스의 메소드 모두 해당 -->
-			<aop:pointcut id="publicM" expression="within(com.lgy.spring_8_1.*)" />
-			<aop:around method="LoggerAop" pointcut-ref="publicM"/>
+	<!-- 	aop:aspect : 공통기능 -->
+	<!-- logger 참조변수가 공통기능을 가리킴 -->
+		<aop:aspect id="logger" ref="logAop">
+			<!-- 		aop:pointcut : 핵심기능에 적용되는 부분(공통기능이->) -->
+			<!-- com.lgy.spring_8_1.* : 패키지 안에 클래스의 메소드 모두 해당 -->
+			<aop:pointcut id="publicM" expression="within(com.lgy.spring_8_1.*)"/>
+			<!-- 			aop:around : 핵심기능 메소드 실행 전/후 및 예외처리 발생시 공통기능(loggerAop) 실행 -->
+			<aop:around method="loggerAop" pointcut-ref="publicM"/>
 		</aop:aspect>
 	</aop:config>
+	
 	<bean id="student" class="com.lgy.spring_8_1.Student">
 		<property name="name" value="홍길동"></property>
 		<property name="age" value="10"></property>
@@ -23,9 +27,9 @@
 		<property name="classNum" value="5"></property>
 	</bean>
 	
-	<bean id="Worker" class="com.lgy.spring_8_1.Worker">
-		<property name="name" value="홍길동"></property>
-		<property name="age" value="50"></property>
+	<bean id="worker" class="com.lgy.spring_8_1.Worker">
+		<property name="name" value="홍길순"></property>
+		<property name="age" value="35"></property>
 		<property name="job" value="개발자"></property>
 	</bean>
 </beans>
