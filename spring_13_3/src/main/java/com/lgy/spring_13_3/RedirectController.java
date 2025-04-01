@@ -26,7 +26,7 @@ public class RedirectController
 	@RequestMapping("/studentOk")
 	public String studentOk()
 	{
-		return "student/studentOK";
+		return "student/studentOk";
 	}
 	@RequestMapping("/studentNg")
 	
