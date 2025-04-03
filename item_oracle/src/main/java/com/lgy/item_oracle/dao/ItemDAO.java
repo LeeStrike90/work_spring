@@ -1,0 +1,6 @@
+package com.lgy.item_oracle.dao;
+
+public class ItemDAO
+{
+
+}

@@ -1,0 +1,6 @@
+package com.lgy.item_oracle.dto;
+
+public class ItemDTO
+{
+
+}

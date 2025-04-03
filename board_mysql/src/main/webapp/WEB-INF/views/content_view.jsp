@@ -45,7 +45,7 @@
 			<tr>
 				<td colspan="2"><input type="submit" value="수정">
 					&nbsp;&nbsp;<a href="list">목록보기</a>
-					&nbsp;&nbsp;<a href="delete=?boardNo=${content_view.boardNo}">삭제</a>
+					&nbsp;&nbsp;<a href="delete?boardNo=${content_view.boardNo}">삭제</a>
 				</td>
 			</tr>
 		</form>

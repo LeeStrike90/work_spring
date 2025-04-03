@@ -4,5 +4,4 @@ import org.springframework.ui.Model;
 
 public interface BoardService {
 	public void excute(Model model);
-
 }

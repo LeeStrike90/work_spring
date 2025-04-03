@@ -208,7 +208,7 @@ public class BoardDAO
 		}
 	}
 
-	public void modify(String boardName, String boardTitle, String BoardContent, String boardNo)
+	public void modify(String boardNo, String boardName, String boardTitle, String BoardContent)
 	{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
