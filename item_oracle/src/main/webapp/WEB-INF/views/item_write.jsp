@@ -7,13 +7,33 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="write">
-		상품명 <input type="text" name="name" ><br>
-		가격 <input type="text" name="price" ><br>
-		설명 <input type="text" name="description" ></textarea><br>
-		<td colspan="2"><input type="submit" value="전송"></td>
-		<td colspan="2"><input type="button" value="취소"></td>
+	<form method="post" action="write_result">
+		<table>
+			<tr>
+				<td>상품명</td>
+				<td>
+					<input type="text" name="name">
+				</td>
+			</tr>
+			<tr>
+				<td>가격</td>
+				<td>
+					<input type="text" name="price">
+				</td>
+			</tr>
+			<tr>
+				<td>설명</td>
+				<td>
+					<input type="text" name="description">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" value="전송">
+					<input type="reset" value="취소">
+				</td>
+			</tr>
+		</table>
 	</form>
-	</table>
 </body>
 </html>
