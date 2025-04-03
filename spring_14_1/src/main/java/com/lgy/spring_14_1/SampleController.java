@@ -12,10 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lgy.spring_14_1.domain.SampleVO;
+import com.lgy.spring_14_1.domain.TicketVO;
+
 
 //@Controller
 @RestController //pom.xml 설정이 되어야 사용가능
@@ -69,6 +72,12 @@ public class SampleController
 	public String[] getPath(@PathVariable("cat") String cat,@PathVariable("pid") int pid)
 	{
 		return new String[] {"category : " +cat, "product id : "+pid};
+	}
+	
+	@PostMapping("/ticket")
+	public void convert(TicketVO ticketVO)
+	{
+		System.out.println("@# ticketVO"+ticketVO);
 	}
 	
 }

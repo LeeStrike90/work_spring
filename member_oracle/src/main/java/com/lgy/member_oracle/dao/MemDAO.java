@@ -12,11 +12,15 @@ import javax.sql.DataSource;
 public class MemDAO {
 	DataSource dataSource;
 	
-	public MemDAO() {
-		try {
+	public MemDAO() 
+	{
+		try 
+		{
 			Context ctx = new InitialContext();
 			dataSource = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
-		} catch (Exception e) {
+		}
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 	}
