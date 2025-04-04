@@ -13,16 +13,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lgy.spring_14_1.domain.MemberVO;
 import com.lgy.spring_14_1.domain.SampleVO;
 import com.lgy.spring_14_1.domain.TicketVO;
+
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 
 //@Controller
 @RestController //pom.xml 설정이 되어야 사용가능
 @RequestMapping("/sample")
+@Slf4j
 public class SampleController
 {
 //	@GetMapping(value="/getSample")
@@ -75,9 +81,24 @@ public class SampleController
 	}
 	
 	@PostMapping("/ticket")
-	public void convert(TicketVO ticketVO)
+//	public void convert(TicketVO ticketVO)
+	//@RequestBody : 전송된 json 데이터를 TicketVO 타입의 객체로 변환
+//	public void convert(@RequestBody TicketVO ticketVO)
+	public TicketVO convert(@RequestBody TicketVO ticketVO)
 	{
-		System.out.println("@# ticketVO"+ticketVO);
+		//@#ticketVO => TicketVO(tno=0, owner=null, grade=null)
+//		@RequestBody 추가 후, 정상출력 @# ticketVOTicketVO(tno=777, owner=gd, grade=A)
+		System.out.println("@# ticketVO 1"+ticketVO);
+//		@# ticketVO 1TicketVO(tno=777, owner=gd, grade=A)
+		log.info("@# ticketVO 2"+ticketVO);
+//		INFO : com.lgy.spring_14_1.SampleController - @# ticketVO 2TicketVO(tno=777, owner=gd, grade=A)
+		return ticketVO;
 	}
 	
+	@PostMapping("/info")
+	public MemberVO convert(@RequestBody MemberVO memberVO)
+	{
+		log.info("@# memberVO=>"+memberVO);
+		return memberVO;
+	}
 }

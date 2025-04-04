@@ -16,14 +16,15 @@
 	$(function() {
 		$("#checkJson").click(function() {
 			var member = {
-				tno : "777",
-				owner : "gd",
-				grade : "A"
+				id : "park",
+				pw : "1234",
+				name : "박지성",
+				email : "park@test.com"
 			};
 			$.ajax({
 				type : "post"
 // 				url : "프로젝트경로/sample/ticket"
-				,url : "${contextPath}/sample/ticket"
+				,url : "${contextPath}/sample/info"
 				,contentType: "application/json; charset=utf-8"
 // 					JSON.stringify: 객체를 json문자열 형태로 변환
 				,data:JSON.stringify(member)
