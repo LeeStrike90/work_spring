@@ -34,7 +34,7 @@ public class BoardDAO {
 
 	/**
 	 * 게시글 전체 목록 조회
-	 * @return 게시글 리스트 (ArrayList<BoardDTO>)
+	 * @return 게시글 리스트 (ArrayList<BoardDTOㄱ>)
 	 */
 	public ArrayList<BoardDTO> list() {
 		Connection conn = null;
