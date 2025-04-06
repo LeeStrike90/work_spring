@@ -1,5 +1,6 @@
 package com.lgy.item_oracle.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class ItemController {
+
 	ItemService service;
 	
 //	상품 목록 조회
@@ -23,11 +25,10 @@ public class ItemController {
 		log.info("@# content_view()");
 		
 		service=new ItemContentService();
-		service.execute(model);
+		service.excute(model);
 		
 		return "content_view";
 	}
-	
 //	상품 등록
 	@RequestMapping("/write_result")
 	public String write(HttpServletRequest request, Model model) {
@@ -36,7 +37,7 @@ public class ItemController {
 		model.addAttribute("request", request);
 		
 		service=new ItemWriteService();
-		service.execute(model);
+		service.excute(model);
 		
 		return "write_result";
 	}
@@ -49,3 +50,19 @@ public class ItemController {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

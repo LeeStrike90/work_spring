@@ -8,10 +8,11 @@ import org.springframework.ui.Model;
 
 import com.lgy.item_oracle.dao.ItemDAO;
 
-public class ItemWriteService implements ItemService{
 
+public class ItemWriteService implements ItemService{
+	
 	@Override
-	public void execute(Model model) {
+	public void excute(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
@@ -23,4 +24,5 @@ public class ItemWriteService implements ItemService{
 		dao.write(name, price, description);
 	}
 	
+
 }

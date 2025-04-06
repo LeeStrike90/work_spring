@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ItemDTO {
-	private String name;
-	private int price;
-	private String description;
+	private String NAME;
+	private int PRICE;
+	private String DESCRIPTION;
 }
