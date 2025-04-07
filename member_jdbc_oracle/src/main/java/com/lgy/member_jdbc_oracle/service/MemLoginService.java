@@ -5,16 +5,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.lgy.member_jdbc_oracle.DAO.MemDAO;
-import com.lgy.member_jdbc_oracle.DTO.memberDTO;
+import com.lgy.member_jdbc_oracle.dao.MemDAO;
+import com.lgy.member_jdbc_oracle.dto.MemDTO;
 
-@Service
 public class MemLoginService implements MemService{
+
 	@Override
-	public int excute(Model model) {
+	public int execute(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
@@ -22,21 +21,21 @@ public class MemLoginService implements MemService{
 		String mPw = request.getParameter("mem_pwd");
 		int re;
 		
-		MemDAO dao = new MemDAO();
-		ArrayList<memberDTO> dtos = dao.loginYn(mId, mPw);
-		
+		MemDAO dao=new MemDAO();
+//		int re = dao.loginYn(mId, mPw);
+		ArrayList<MemDTO> dtos = dao.loginYn(mId, mPw);
 		
 		if (dtos.isEmpty()) {
 			re=-1;
 		} else {
-			if (mPw.equals(dtos.get(0).getMEM_PWD())) {
+			if (mPw.equals(dtos.get(0).getMem_pwd())) {
 				re=1;
 			} else {
 				re=0;
 			}
 		}
-		
-//		컨트롤러에 re 전달(0,1,-1)
+//		컨트롤러에 re 전달(0,1,-1 중에서)
 		return re;
 	}
+	
 }
