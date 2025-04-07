@@ -1,4 +1,4 @@
-package com.lgy.item_jdbc_oracle.Service;
+package com.lgy.item_jdbc_oracle.service;
 
 import org.springframework.ui.Model;
 

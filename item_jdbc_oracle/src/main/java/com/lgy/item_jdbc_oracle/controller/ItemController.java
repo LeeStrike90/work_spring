@@ -1,4 +1,4 @@
-package com.lgy.item_jdbc_oracle.Controller;
+package com.lgy.item_jdbc_oracle.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

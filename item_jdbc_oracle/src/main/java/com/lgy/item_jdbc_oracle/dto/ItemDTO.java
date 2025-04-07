@@ -1,4 +1,4 @@
-package com.lgy.item_jdbc_oracle.DTO;
+package com.lgy.item_jdbc_oracle.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

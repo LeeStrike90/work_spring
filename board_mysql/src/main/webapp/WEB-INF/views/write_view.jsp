@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,13 +19,13 @@
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea rows="10" name="boardContent" ></textarea></td>
+				<td><textarea rows="10" name="boardContent"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="입력"></td>
-				
+
 			</tr>
-			
+
 		</form>
 	</table>
 </body>

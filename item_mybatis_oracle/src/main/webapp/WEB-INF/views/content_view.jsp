@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 </head>
 <body>
 	<table width="500" border="1">
-		<tr> 
+		<tr>
 			<td>상품명</td>
 			<td>가격</td>
 			<td>설명</td>
