@@ -22,24 +22,24 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.lgy.board_std_mysql" />
-		<beans:bean name="dataSource"
-	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<beans:property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-		<beans:property name="url" value="jdbc:mysql://localhost:3306/atom"/>
-		<beans:property name="username" value="bts"/>
-		<beans:property name="password" value="1234"/>
-	</beans:bean>
 	
-	<beans:bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- 	dataSource 객체는 데이터베이스 정보 포함 -->
+	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></beans:property>
+		<beans:property name="url" value="jdbc:mysql://localhost:3306/atom"></beans:property>
+		<beans:property name="username" value="bts"></beans:property>
+		<beans:property name="password" value="1234"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
-		<!-- sql로 구성된 xml 경로 설정 -->
+		<!-- 		sql 로 구성된 xml 경로 설정 -->
 		<beans:property name="mapperLocations" value="classpath:com/lgy/board_std_mysql/dao/mapper/*.xml"></beans:property>
 	</beans:bean>
 	
-	<!-- SqlSessionTemplate 타입의 sqlSession 객체는 sqlSessionFactory 객체를 포함한다. -->
+	<!-- 	SqlSessionTemplate 타입의 sqlSession 객체는 sqlSessionFactory 객체를 포함한다. -->
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<beans:constructor-arg index="0" ref="sqlSessionFactoryBean"></beans:constructor-arg>
-	</beans:bean>
+		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
+	</beans:bean>	
+	
 </beans:beans>
-	
-	

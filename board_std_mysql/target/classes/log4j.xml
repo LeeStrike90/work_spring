@@ -12,7 +12,8 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.lgy.board_std_mysql">
-		<level value="info" />
+<!-- 		<level value="info" /> -->
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
