@@ -26,7 +26,7 @@
 				<td>이름</td>
 				<td>
 <%-- 					${content_view.boardName} --%>
-					<input type="text" name="boardName" value="${content_view.boardName}">
+					<input type="text" name="boardName" value="${content_view.boardTitle}">
 				</td>
 			</tr>
 			<tr>

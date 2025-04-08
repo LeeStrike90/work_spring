@@ -34,7 +34,7 @@ public class ItemController {
 	public String content_view(Model model) {
 		log.info("@# content_view()");
 		
-		service=new ItemContentService();
+		service =new ItemContentService();
 		service.excute(model);
 		
 		return "content_view";
