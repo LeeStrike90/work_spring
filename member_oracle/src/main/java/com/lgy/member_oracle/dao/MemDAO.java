@@ -1,4 +1,4 @@
-package com.lgy.member_oracle.DAO;
+package com.lgy.member_oracle.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,21 +10,27 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public class MemDAO {
+public class MemDAO
+{
 	DataSource dataSource;
 
-	public MemDAO() {
-		try {
+	public MemDAO()
+	{
+		try
+		{
 			Context ctx = new InitialContext();
 			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-		} catch (Exception e) {
+		} 
+		catch (Exception e)
+		
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public int loginYn(String id, String pw) {
+	public int loginYn(String id, String pw)
+	{
 		int re = -1;
 		String db_mem_pwd;
 
@@ -33,36 +39,45 @@ public class MemDAO {
 		ResultSet rs = null;
 		String sql = "select mem_pwd from MVC_MEMBER where mem_uid=?";
 
-		try {
+		try
+		{
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 
 //		아이디가 있는 경우
-			if (rs.next()) {
+			if (rs.next())
+			{
 				db_mem_pwd = rs.getString("mem_pwd");
 //			데이터베이스 조회된 비밀번호 = 파라미터 비밀번호
-				if (db_mem_pwd.equals(pw)) {
+				if (db_mem_pwd.equals(pw))
+				{
 					re = 1;
-				} else {// 데이터베이스 비밀번호와 파라미터 비밀번호가 다름
+				} else
+				{// 데이터베이스 비밀번호와 파라미터 비밀번호가 다름
 					re = 0;
 				}
-			} else {// 아이디가 없는 경우
+			} else
+			{// 아이디가 없는 경우
 				re = -1;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
-		} finally {
-			try {
+		} finally
+		{
+			try
+			{
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
 					pstmt.close();
 				if (conn != null)
 					conn.close();
-			} catch (Exception e2) {
+			} catch (Exception e2)
+			{
 				e2.printStackTrace();
 			}
 		}
