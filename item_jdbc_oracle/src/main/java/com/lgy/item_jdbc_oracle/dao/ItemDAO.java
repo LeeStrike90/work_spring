@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 
-import com.lgy.item_jdbc_oracle.DTO.ItemDTO;
+import com.lgy.item_jdbc_oracle.dto.ItemDTO;
 import com.lgy.item_jdbc_oracle.util.Constant;
 
 import lombok.extern.slf4j.Slf4j;
