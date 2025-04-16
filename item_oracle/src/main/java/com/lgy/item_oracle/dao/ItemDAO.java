@@ -13,7 +13,6 @@ import com.lgy.item_oracle.dto.ItemDTO;
 
 public class ItemDAO
 {
-
 	DataSource dataSource;
 
 	public ItemDAO()
@@ -46,11 +45,13 @@ public class ItemDAO
 			pstmt.setString(2, PRICE);
 			pstmt.setString(3, DESCRIPTION);
 			pstmt.executeUpdate();
-
 		} catch (Exception e)
+		
 		{
 			e.printStackTrace();
-		} finally
+		} 
+		
+		finally
 		{
 			try
 			{
@@ -63,7 +64,6 @@ public class ItemDAO
 				e2.printStackTrace();
 			}
 		}
-
 	}
 
 	public ArrayList<ItemDTO> list()
@@ -104,7 +104,9 @@ public class ItemDAO
 					pstmt.close();
 				if (conn != null)
 					conn.close();
-			} catch (Exception e2)
+			} 
+			
+			catch (Exception e2)
 			{
 				e2.printStackTrace();
 			}
