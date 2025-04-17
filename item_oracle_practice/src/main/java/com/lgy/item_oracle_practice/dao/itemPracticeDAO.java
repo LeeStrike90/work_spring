@@ -1,10 +1,8 @@
 package com.lgy.item_oracle_practice.dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -70,45 +68,44 @@ public class itemPracticeDAO
 		ResultSet rs = null;
 		String sql = "select NAME, PRICE, DESCRIPTION from ITEM";
 		ArrayList<ItemPracticeDTO> dtos = new ArrayList<>();
-
+		
 		try
 		{
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
-			while (rs.next())
+			
+			while(rs.next())
 			{
 				String NAME = rs.getString("NAME");
 				int PRICE = rs.getInt("PRICE");
 				String DESCRIPTION = rs.getString("DESCRIPTION");
-
-				// 하나의 게시글 객체
+				
+				//하나의 게시글 객체
 				ItemPracticeDTO dto = new ItemPracticeDTO(NAME, PRICE, DESCRIPTION);
-//			게시글을 추가(dtos : 여러 게시글이 될수 있음)
+				//게시글을 추가(dtos : 여러 게시글이 될 수 있음)
 				dtos.add(dto);
 			}
-		} catch (Exception e)
+		}
+		
+		catch (Exception e) 
 		{
 			e.printStackTrace();
-		} finally
+		}
+		
+		finally
 		{
 			try
 			{
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
 			}
-
-			catch (Exception e2)
+			catch (Exception e2) 
 			{
 				e2.printStackTrace();
 			}
 		}
 		return dtos;
 	}
-
 }
