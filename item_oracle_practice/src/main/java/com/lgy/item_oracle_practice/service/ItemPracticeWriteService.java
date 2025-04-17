@@ -19,7 +19,6 @@ public class ItemPracticeWriteService implements ItemPracticeService
 		String name = request.getParameter("name");
 		String price = request.getParameter("price");
 		String description = request.getParameter("description");
-		
 		itemPracticeDAO dao = new itemPracticeDAO();
 		dao.write(name, price, description);
 	}

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<a href="content_view">결과 보기</a>
 </body>
 </html>
