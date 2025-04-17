@@ -162,7 +162,12 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="item_oracle_practice" path="/item_oracle_practice" reloadable="true" source="org.eclipse.jst.jee.server:item_oracle_practice"/></Host>
+      <Context docBase="item_oracle_practice" path="/item_oracle_practice" reloadable="true" source="org.eclipse.jst.jee.server:item_oracle_practice">
+      <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxIdle="30" maxTotal="100" maxWaitMillis="10000" name="jdbc/mysql" password="1234" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/jspdb" username="root"/>
+              
+            <Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver" maxIdle="30" maxTotal="100" maxWaitMillis="10000" name="jdbc/oracle" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:xe" username="scott"/>
+      </Context>
+      <Context docBase="item_oracle" path="/item_oracle" reloadable="true" source="org.eclipse.jst.jee.seZrver:item_oracle"/></Host>
     </Engine>
   </Service>
 </Server>
