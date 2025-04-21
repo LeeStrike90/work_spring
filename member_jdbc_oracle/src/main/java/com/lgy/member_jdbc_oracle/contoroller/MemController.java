@@ -15,25 +15,22 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class MemController
-{
+public class MemController {
 
 	MemService service;
 	public JdbcTemplate template;
 
-//	로그인 화면 이동
+//	濡쒓렇�씤 �솕硫� �씠�룞
 	@RequestMapping("/login")
-	public String login(Model model)
-	{
+	public String login(Model model) {
 		log.info("@# login()");
 
 		return "login";
 	}
 
-// 로그인 화면 => 로그인 여부 판단 
+// 濡쒓렇�씤 �솕硫� => 濡쒓렇�씤 �뿬遺� �뙋�떒 
 	@RequestMapping("/login_yn")
-	public String write(HttpServletRequest request, Model model)
-	{
+	public String write(HttpServletRequest request, Model model) {
 		log.info("@# loginyn()");
 
 		model.addAttribute("request", request);
@@ -41,9 +38,8 @@ public class MemController
 		service = new MemLoginService();
 		int result = service.execute(model);
 
-//		아이디와 비밀번호가 일치
-		if (result == 1)
-		{
+//		�븘�씠�뵒�� 鍮꾨�踰덊샇媛� �씪移�
+		if (result == 1) {
 			return "redirect:login_ok";
 		}
 
@@ -51,24 +47,21 @@ public class MemController
 	}
 
 	@RequestMapping("/login_ok")
-	public String write_view()
-	{
+	public String write_view() {
 		log.info("@# login_ok()");
 
 		return "login_ok";
 	}
 
 	@RequestMapping("/register")
-	public String register()
-	{
+	public String register() {
 		log.info("@# register()");
 
 		return "register";
 	}
 
 	@RequestMapping("/registerOk")
-	public String registerOk(HttpServletRequest request, Model model)
-	{
+	public String registerOk(HttpServletRequest request, Model model) {
 		log.info("@# registerOk()");
 
 		model.addAttribute("request", request);

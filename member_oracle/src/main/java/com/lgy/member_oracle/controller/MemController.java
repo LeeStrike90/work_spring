@@ -16,37 +16,35 @@ import lombok.extern.slf4j.Slf4j;
 public class MemController {
 
 	MemService service;
-	
-//	로그인 화면 이동
+
+	// 로그인 화면 이동
 	@RequestMapping("/login")
 	public String login(Model model) {
 		log.info("@# login()");
-		
 		return "login";
 	}
-// 로그인 화면 => 로그인 여부 판단 
+
+	// 로그인 화면 → 로그인 여부 판단 처리
 	@RequestMapping("/login_yn")
 	public String write(HttpServletRequest request, Model model) {
 		log.info("@# loginyn()");
-		
+
 		model.addAttribute("request", request);
-		
-		service=new MemLoginService();
+
+		service = new MemLoginService();
 		int result = service.excute(model);
-		
-//		아이디와 비밀번호가 일치
+
+		// 아이디와 비밀번호가 일치할 경우
 		if (result == 1) {
 			return "redirect:login_ok";
 		}
-		
+
 		return "write_result";
 	}
-	
+
 	@RequestMapping("/login_ok")
 	public String write_view() {
 		log.info("@# login_ok()");
-		
 		return "login_ok";
 	}
-	
 }
