@@ -9,13 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lgy.board_jdbc_mysql.service.BoardContentService;
-//import com.lgy.board_jdbc_mysql.service.BoardDeleteService;
+// import com.lgy.board_jdbc_mysql.service.BoardDeleteService;
 import com.lgy.board_jdbc_mysql.service.BoardListService;
 import com.lgy.board_jdbc_mysql.service.BoardModifyService;
 import com.lgy.board_jdbc_mysql.service.BoardService;
 import com.lgy.board_jdbc_mysql.service.BoardWriteService;
 import com.lgy.board_jdbc_mysql.util.Constant;
 
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -24,19 +25,19 @@ public class BoardController {
 	BoardService service;
 	public JdbcTemplate template;
 	
-//	servlet-context.xml 에 있는 template 객체를 저장(this.template)
+	// servlet-context.xml 에 있는 template 객체를 저장(this.template)
 	@Autowired
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
-//		Constant.template 를 dao 에서 사용
+		// Constant.template 를 dao 에서 사용
 		Constant.template = this.template;
 	}
-	
+
 	@RequestMapping("/list")
 	public String list(Model model) {
 		log.info("@# list()");
 		
-		service=new BoardListService();
+		service = new BoardListService();
 		service.excute(model);
 		
 		return "list";
@@ -48,7 +49,7 @@ public class BoardController {
 		
 		model.addAttribute("request", request);
 		
-		service=new BoardWriteService();
+		service = new BoardWriteService();
 		service.excute(model);
 		
 		return "redirect:list";
@@ -67,7 +68,7 @@ public class BoardController {
 		
 		model.addAttribute("request", request);
 		
-		service=new BoardContentService();
+		service = new BoardContentService();
 		service.excute(model);
 		
 		return "content_view";
@@ -79,21 +80,21 @@ public class BoardController {
 		
 		model.addAttribute("request", request);
 		
-		service=new BoardModifyService();
+		service = new BoardModifyService();
 		service.excute(model);
 		
 		return "redirect:list";
 	}
 	
-//	@RequestMapping("/delete")
-//	public String delete(HttpServletRequest request, Model model) {
-//		log.info("@# delete()");
-//		
-//		model.addAttribute("request", request);
-//		
-//		service=new BoardDeleteService();
-//		service.excute(model);
-//		
-//		return "redirect:list";
-//	}
+	// @RequestMapping("/delete")
+	// public String delete(HttpServletRequest request, Model model) {
+	// 	log.info("@# delete()");
+		
+	// 	model.addAttribute("request", request);
+		
+	// 	service = new BoardDeleteService();
+	// 	service.excute(model);
+		
+	// 	return "redirect:list";
+	// }
 }

@@ -1,102 +1,103 @@
 package com.lgy.board_mysql.dao;
 
-// Java의 JDBC 관련 클래스들
+// Java�쓽 JDBC 愿��젴 �겢�옒�뒪�뱾
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-// DBCP(DataBase Connection Pool)를 위한 Java 네이밍 관련 클래스
+// DBCP(DataBase Connection Pool)瑜� �쐞�븳 Java �꽕�씠諛� 愿��젴 �겢�옒�뒪
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.lgy.board_mysql.dto.BoardDTO;
 
-import lombok.extern.slf4j.Slf4j; // 로그 출력을 위한 Lombok 어노테이션
+import lombok.extern.slf4j.Slf4j; // 濡쒓렇 異쒕젰�쓣 �쐞�븳 Lombok �뼱�끂�뀒�씠�뀡
 
 /**
- * 게시판 DAO 클래스 - DB 접근과 SQL 처리 담당
- * DAO(Data Access Object): 실제로 DB에 접근해서 데이터를 가져오거나, 저장, 수정, 삭제 등을 처리하는 클래스
+ * 寃뚯떆�뙋 DAO �겢�옒�뒪 - DB �젒洹쇨낵 SQL 泥섎━ �떞�떦 DAO(Data Access Object): �떎�젣濡� DB�뿉
+ * �젒洹쇳빐�꽌 �뜲�씠�꽣瑜� 媛��졇�삤嫄곕굹, ���옣, �닔�젙, �궘�젣 �벑�쓣 泥섎━�븯�뒗 �겢�옒�뒪
  */
-@Slf4j // Lombok 어노테이션: log.info(), log.debug() 등을 바로 사용할 수 있게 로그 객체 생성
-public class BoardDAO 
-{
-	DataSource dataSource; // 커넥션 풀을 통해 DB 연결을 관리할 객체
+@Slf4j // Lombok �뼱�끂�뀒�씠�뀡: log.info(), log.debug() �벑�쓣 諛붾줈 �궗�슜�븷 �닔 �엳寃� 濡쒓렇 媛앹껜
+		// �깮�꽦
+public class BoardDAO {
+	DataSource dataSource; // 而ㅻ꽖�뀡 ���쓣 �넻�빐 DB �뿰寃곗쓣 愿�由ы븷 媛앹껜
 
-	// 생성자: DataSource를 JNDI 방식으로 lookup하여 가져옴
-	public BoardDAO() 
-	{
-		try 
-		{
-			// context.xml에 설정한 리소스 이름으로 DB 커넥션을 찾아온다
-			Context ctx = new InitialContext(); 
-			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/mysql"); 
-		} 
-		catch (Exception e) 
-		{
+	// �깮�꽦�옄: DataSource瑜� JNDI 諛⑹떇�쑝濡� lookup�븯�뿬 媛��졇�샂
+	public BoardDAO() {
+		try {
+			// context.xml�뿉 �꽕�젙�븳 由ъ냼�뒪 �씠由꾩쑝濡� DB 而ㅻ꽖�뀡�쓣 李얠븘�삩�떎
+			Context ctx = new InitialContext();
+			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/mysql");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * 게시글 전체 목록 조회
-	 * @return 게시글 리스트 (ArrayList<BoardDTO>)
+	 * 寃뚯떆湲� �쟾泥� 紐⑸줉 議고쉶
+	 * 
+	 * @return 寃뚯떆湲� 由ъ뒪�듃 (ArrayList<BoardDTO>)
 	 */
 	public ArrayList<BoardDTO> list() {
-		Connection conn = null; //데이터베이스의 연결을 담당하는 객체
-		PreparedStatement pstmt = null; //SQL문을 컴파일해서 실행할 수 있게 해주는 객체
-		ResultSet rs = null; //select 쿼리 결과를 담는 객체 , db로부터 결과 테이블 행 단위로 읽어올 수 있도록 도와줌.
-		//또한 반복문을 통해 .next()로 한 행씩 접근
-		
-		// 게시판 전체 조회 SQL 문장
+		Connection conn = null; // �뜲�씠�꽣踰좎씠�뒪�쓽 �뿰寃곗쓣 �떞�떦�븯�뒗 媛앹껜
+		PreparedStatement pstmt = null; // SQL臾몄쓣 而댄뙆�씪�빐�꽌 �떎�뻾�븷 �닔 �엳寃� �빐二쇰뒗 媛앹껜
+		ResultSet rs = null; // select 荑쇰━ 寃곌낵瑜� �떞�뒗 媛앹껜 , db濡쒕��꽣 寃곌낵 �뀒�씠釉� �뻾 �떒�쐞濡� �씫�뼱�삱 �닔 �엳�룄濡�
+								// �룄��以�.
+		// �삉�븳 諛섎났臾몄쓣 �넻�빐 .next()濡� �븳 �뻾�뵫 �젒洹�
+
+		// 寃뚯떆�뙋 �쟾泥� 議고쉶 SQL 臾몄옣
 		String sql = "select boardNo, boardName, boardTitle, boardContent, boardDate, boardHit from tbl_board";
 
-		// 결과 데이터를 담을 리스트 객체
+		// 寃곌낵 �뜲�씠�꽣瑜� �떞�쓣 由ъ뒪�듃 媛앹껜
 		ArrayList<BoardDTO> dtos = new ArrayList<BoardDTO>();
 
 		try {
-				conn = dataSource.getConnection(); // 커넥션 풀에서 DB 연결 객체 가져오기
-				pstmt = conn.prepareStatement(sql); // SQL 문장을 DB에 보낼 준비
-			
-				rs = pstmt.executeQuery(); // SELECT 실행
-					
-				// 결과셋을 한 줄씩 읽어 BoardDTO 객체로 변환 후 리스트에 추가
-				while (rs.next()) 
-				{
-					int boardNo = rs.getInt("boardNo");
-					String boardName = rs.getString("boardName");
-					String boardTitle = rs.getString("boardTitle");
-					String boardContent = rs.getString("boardContent");
-					Timestamp boardDate = rs.getTimestamp("boardDate");
-					int boardHit = rs.getInt("boardHit");
-	
-					// 게시글 DTO 생성 후 리스트에 추가
-					BoardDTO dto = new BoardDTO(boardNo, boardName, boardTitle, boardContent, boardDate, boardHit);
-					dtos.add(dto);
-				}
+			conn = dataSource.getConnection(); // 而ㅻ꽖�뀡 ���뿉�꽌 DB �뿰寃� 媛앹껜 媛��졇�삤湲�
+			pstmt = conn.prepareStatement(sql); // SQL 臾몄옣�쓣 DB�뿉 蹂대궪 以�鍮�
+
+			rs = pstmt.executeQuery(); // SELECT �떎�뻾
+
+			// 寃곌낵�뀑�쓣 �븳 以꾩뵫 �씫�뼱 BoardDTO 媛앹껜濡� 蹂��솚 �썑 由ъ뒪�듃�뿉 異붽�
+			while (rs.next()) {
+				int boardNo = rs.getInt("boardNo");
+				String boardName = rs.getString("boardName");
+				String boardTitle = rs.getString("boardTitle");
+				String boardContent = rs.getString("boardContent");
+				Timestamp boardDate = rs.getTimestamp("boardDate");
+				int boardHit = rs.getInt("boardHit");
+
+				// 寃뚯떆湲� DTO �깮�꽦 �썑 由ъ뒪�듃�뿉 異붽�
+				BoardDTO dto = new BoardDTO(boardNo, boardName, boardTitle, boardContent, boardDate, boardHit);
+				dtos.add(dto);
+			}
 
 		} catch (Exception e) {
-			e.printStackTrace(); // 에러 로그 출력
+			e.printStackTrace(); // �뿉�윭 濡쒓렇 異쒕젰
 		} finally {
-			// 자원 해제 (DB 연결 끊기)
+			// �옄�썝 �빐�젣 (DB �뿰寃� �걡湲�)
 			try {
-				if (rs != null) rs.close();
-				if (pstmt != null) pstmt.close();
-				if (conn != null) conn.close();
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
-		return dtos; // 전체 게시글 목록 반환
+		return dtos; // �쟾泥� 寃뚯떆湲� 紐⑸줉 諛섑솚
 	}
 
 	/**
-	 * 게시글 작성 기능
-	 * @param boardName 글쓴이 이름
-	 * @param boardTitle 글 제목
-	 * @param boardContent 글 내용
+	 * 寃뚯떆湲� �옉�꽦 湲곕뒫
+	 * 
+	 * @param boardName    湲��벖�씠 �씠由�
+	 * @param boardTitle   湲� �젣紐�
+	 * @param boardContent 湲� �궡�슜
 	 */
 	public void write(String boardName, String boardTitle, String boardContent) {
 		Connection conn = null;
@@ -104,39 +105,36 @@ public class BoardDAO
 		String sql = "insert into tbl_board(boardName, boardTitle, boardContent) values(?,?,?)";
 
 		try {
-				conn = dataSource.getConnection();
-				pstmt = conn.prepareStatement(sql); // INSERT SQL 준비
-				pstmt.setString(1, boardName);
-				pstmt.setString(2, boardTitle);
-				pstmt.setString(3, boardContent);
-				pstmt.executeUpdate(); // DB에 INSERT 실행, write 니까! 
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql); // INSERT SQL 以�鍮�
+			pstmt.setString(1, boardName);
+			pstmt.setString(2, boardTitle);
+			pstmt.setString(3, boardContent);
+			pstmt.executeUpdate(); // DB�뿉 INSERT �떎�뻾, write �땲源�!
 
-			}
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
-		} 
-		finally 
-		{
+		} finally {
 			try {
-					if (pstmt != null) pstmt.close();
-					if (conn != null) conn.close();
-				} 
-			catch (Exception e2) 
-			{
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
 	}
 
 	/**
-	 * 게시글 상세 조회 + 조회수 증가
-	 * @param strID 조회할 게시글 번호 (문자열로 전달됨)
-	 * @return 게시글 DTO
+	 * 寃뚯떆湲� �긽�꽭 議고쉶 + 議고쉶�닔 利앷�
+	 * 
+	 * @param strID 議고쉶�븷 寃뚯떆湲� 踰덊샇 (臾몄옄�뿴濡� �쟾�떖�맖)
+	 * @return 寃뚯떆湲� DTO
 	 */
-	
+
 	public BoardDTO contentView(String strID) {
-		upHit(strID); // 조회수 먼저 증가시킴
+		upHit(strID); // 議고쉶�닔 癒쇱� 利앷��떆�궡
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -144,31 +142,33 @@ public class BoardDAO
 		BoardDTO dto = null;
 
 		try {
-				conn = dataSource.getConnection();
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, Integer.parseInt(strID)); // 게시글 번호 설정
-				rs = pstmt.executeQuery(); // SELECT 실행
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(strID)); // 寃뚯떆湲� 踰덊샇 �꽕�젙
+			rs = pstmt.executeQuery(); // SELECT �떎�뻾
 
-				if (rs.next()) 
-				{
-					// 결과를 DTO 객체로 매핑
-					int boardNo = rs.getInt("boardNo");
-					String boardName = rs.getString("boardName");
-					String boardTitle = rs.getString("boardTitle");
-					String boardContent = rs.getString("boardContent");
-					Timestamp boardDate = rs.getTimestamp("boardDate");
-					int boardHit = rs.getInt("boardHit");
-	
-					dto = new BoardDTO(boardNo, boardName, boardTitle, boardContent, boardDate, boardHit);
-				}
+			if (rs.next()) {
+				// 寃곌낵瑜� DTO 媛앹껜濡� 留ㅽ븨
+				int boardNo = rs.getInt("boardNo");
+				String boardName = rs.getString("boardName");
+				String boardTitle = rs.getString("boardTitle");
+				String boardContent = rs.getString("boardContent");
+				Timestamp boardDate = rs.getTimestamp("boardDate");
+				int boardHit = rs.getInt("boardHit");
+
+				dto = new BoardDTO(boardNo, boardName, boardTitle, boardContent, boardDate, boardHit);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (rs != null) rs.close();
-				if (pstmt != null) pstmt.close();
-				if (conn != null) conn.close();
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -177,8 +177,9 @@ public class BoardDAO
 	}
 
 	/**
-	 * 게시글 조회수 증가
-	 * @param boardNo 조회할 게시글 번호
+	 * 寃뚯떆湲� 議고쉶�닔 利앷�
+	 * 
+	 * @param boardNo 議고쉶�븷 寃뚯떆湲� 踰덊샇
 	 */
 	public void upHit(String boardNo) {
 		Connection conn = null;
@@ -186,17 +187,19 @@ public class BoardDAO
 		String sql = "update tbl_board set boardHit=boardHit+1 where boardNo=?";
 
 		try {
-				conn = dataSource.getConnection();
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, Integer.parseInt(boardNo));
-				pstmt.executeUpdate(); // 조회수 1 증가
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(boardNo));
+			pstmt.executeUpdate(); // 議고쉶�닔 1 利앷�
 
-			} catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (pstmt != null) pstmt.close();
-				if (conn != null) conn.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -204,11 +207,12 @@ public class BoardDAO
 	}
 
 	/**
-	 * 게시글 수정
-	 * @param boardNo 게시글 번호
-	 * @param boardName 작성자 이름
-	 * @param boardTitle 제목
-	 * @param BoardContent 내용
+	 * 寃뚯떆湲� �닔�젙
+	 * 
+	 * @param boardNo      寃뚯떆湲� 踰덊샇
+	 * @param boardName    �옉�꽦�옄 �씠由�
+	 * @param boardTitle   �젣紐�
+	 * @param BoardContent �궡�슜
 	 */
 	public void modify(String boardNo, String boardName, String boardTitle, String BoardContent) {
 		Connection conn = null;
@@ -216,39 +220,34 @@ public class BoardDAO
 		String sql = "update tbl_board set boardName=?, boardTitle=?, boardContent=? where boardNo=?";
 
 		try {
-				conn = dataSource.getConnection();
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, boardName);
-				pstmt.setString(2, boardTitle);
-				pstmt.setString(3, BoardContent);
-				log.info("@# boardNo=>" + boardNo); // 로그 출력
-				pstmt.setInt(4, Integer.parseInt(boardNo));
-				pstmt.executeUpdate(); // UPDATE 실행
-			}
-		catch (Exception e) 
-		{
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardName);
+			pstmt.setString(2, boardTitle);
+			pstmt.setString(3, BoardContent);
+			log.info("@# boardNo=>" + boardNo); // 濡쒓렇 異쒕젰
+			pstmt.setInt(4, Integer.parseInt(boardNo));
+			pstmt.executeUpdate(); // UPDATE �떎�뻾
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally 
-		{
-			try
-			{
-				if (pstmt != null) pstmt.close();
-				if (conn != null) conn.close();
-			} 
-			catch (Exception e2) 
-			{
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
 	}
 
 	/**
-	 * 게시글 삭제
-	 * @param strID 삭제할 게시글 번호
+	 * 寃뚯떆湲� �궘�젣
+	 * 
+	 * @param strID �궘�젣�븷 寃뚯떆湲� 踰덊샇
 	 */
-	public void delete(String strID)
-	{
+	public void delete(String strID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "delete from tbl_board where boardNo=?";
@@ -257,13 +256,15 @@ public class BoardDAO
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(strID));
-			pstmt.executeUpdate(); // DELETE 실행
+			pstmt.executeUpdate(); // DELETE �떎�뻾
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (pstmt != null) pstmt.close();
-				if (conn != null) conn.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
