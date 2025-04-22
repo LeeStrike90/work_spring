@@ -10,78 +10,102 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository  // ÀÌ Å¬·¡½º°¡ DAO(µ¥ÀÌÅÍ Á¢±Ù °´Ã¼) ¿ªÇÒÀÓÀ» ½ºÇÁ¸µ¿¡ ¾Ë·ÁÁÖ´Â ¾î³ëÅ×ÀÌ¼Ç
 public class MemDAO
 {
-	DataSource dataSource;
+	DataSource dataSource; // DB ¿¬°áÀ» À§ÇÑ DataSource °´Ã¼ ¼±¾ğ (Ä¿³Ø¼ÇÇ® »ç¿ë)
 
+	// »ı¼ºÀÚ: Å¬·¡½º°¡ »ı¼ºµÉ ¶§ µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ÁØºñ
 	public MemDAO()
 	{
 		try
 		{
+			// JNDI ¹æ½ÄÀ¸·Î context °´Ã¼¸¦ »ı¼º
 			Context ctx = new InitialContext();
+
+			// context.xml¿¡ µî·ÏÇÑ DB Ä¿³Ø¼ÇÇ® ÀÚ¿øÀ» lookupÀ¸·Î Ã£¾Æ¼­ dataSource¿¡ ÀúÀå
 			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
 		} 
 		catch (Exception e)
-		
 		{
-			e.printStackTrace();
+			e.printStackTrace(); // ¿¡·¯ ¹ß»ı ½Ã ÄÜ¼Ö¿¡ Ãâ·Â
 		}
 	}
 
+	/**
+	 * ·Î±×ÀÎ ¿©ºÎ¸¦ ÆÇ´ÜÇÏ´Â ¸Ş¼­µå
+	 * @param id »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¾ÆÀÌµğ
+	 * @param pw »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ºñ¹Ğ¹øÈ£
+	 * @return ·Î±×ÀÎ °á°ú (1=¼º°ø, 0=ºñ¹Ğ¹øÈ£ Æ²¸², -1=¾ÆÀÌµğ ¾øÀ½)
+	 */
 	public int loginYn(String id, String pw)
 	{
-		int re = -1;
-		String db_mem_pwd;
+		int re = -1; // °á°ú°ª ÀúÀå¿ë (±âº»°ª: -1 ¡æ ¾ÆÀÌµğ ¾øÀ½)
+		String db_mem_pwd; // DB¿¡¼­ Á¶È¸ÇÑ ºñ¹Ğ¹øÈ£¸¦ ÀúÀåÇÒ º¯¼ö
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+
+		// »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¾ÆÀÌµğ·Î ºñ¹Ğ¹øÈ£¸¦ Á¶È¸ÇÏ´Â SQL
 		String sql = "select mem_pwd from MVC_MEMBER where mem_uid=?";
 
 		try
 		{
+			// Ä¿³Ø¼ÇÇ®·ÎºÎÅÍ DB ¿¬°á °´Ã¼ °¡Á®¿À±â
 			conn = dataSource.getConnection();
+
+			// SQL Äõ¸® ÁØºñ
 			pstmt = conn.prepareStatement(sql);
+
+			// ?¿¡ »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ID¸¦ ³Ö±â
 			pstmt.setString(1, id);
+
+			// SQL ½ÇÇà ÈÄ °á°ú ÀúÀå (rs´Â select °á°ú¸¦ ´ã´Â °´Ã¼)
 			rs = pstmt.executeQuery();
 
-//		ì•„ì´ë””ê°€ ìˆëŠ” ê²½ìš°
+			// ¾ÆÀÌµğ°¡ Á¸ÀçÇÏ´Â °æ¿ì
 			if (rs.next())
 			{
+				// DB¿¡¼­ °¡Á®¿Â ºñ¹Ğ¹øÈ£¸¦ º¯¼ö¿¡ ÀúÀå
 				db_mem_pwd = rs.getString("mem_pwd");
-//			ë°ì´í„°ë² ì´ìŠ¤ ì¡°íšŒëœ ë¹„ë°€ë²ˆí˜¸ = íŒŒë¼ë¯¸í„° ë¹„ë°€ë²ˆí˜¸
+
+				// DBÀÇ ºñ¹Ğ¹øÈ£¿Í »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏ¸é
 				if (db_mem_pwd.equals(pw))
 				{
-					re = 1;
-				} else
-				{// ë°ì´í„°ë² ì´ìŠ¤ ë¹„ë°€ë²ˆí˜¸ì™€ íŒŒë¼ë¯¸í„° ë¹„ë°€ë²ˆí˜¸ê°€ ë‹¤ë¦„
-					re = 0;
+					re = 1; // ·Î±×ÀÎ ¼º°ø
+				} 
+				else
+				{
+					re = 0; // ¾ÆÀÌµğ´Â ¸ÂÁö¸¸ ºñ¹Ğ¹øÈ£ Æ²¸²
 				}
-			} else
-			{// ì•„ì´ë””ê°€ ì—†ëŠ” ê²½ìš°
-				re = -1;
+			} 
+			else
+			{
+				re = -1; // ¾ÆÀÌµğ°¡ DB¿¡ Á¸ÀçÇÏÁö ¾ÊÀ½
 			}
 
-		} catch (Exception e)
+		} 
+		catch (Exception e)
 		{
+			// ¿¹¿Ü ¹ß»ı ½Ã ¿¡·¯ Ãâ·Â
 			e.printStackTrace();
-		} finally
+		} 
+		finally
 		{
+			// »ç¿ëÇÑ ÀÚ¿ø Á¤¸® (¸Ş¸ğ¸® ´©¼ö ¹æÁö)
 			try
 			{
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (Exception e2)
+				if (rs != null) rs.close();           // ResultSet ´İ±â
+				if (pstmt != null) pstmt.close();     // PreparedStatement ´İ±â
+				if (conn != null) conn.close();       // Connection ¹İ³³
+			} 
+			catch (Exception e2)
 			{
 				e2.printStackTrace();
 			}
 		}
 
-		return re;
+		return re; // °á°ú°ª ¹İÈ¯
 	}
 }

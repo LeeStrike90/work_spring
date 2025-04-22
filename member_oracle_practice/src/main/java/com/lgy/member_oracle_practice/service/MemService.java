@@ -1,6 +1,8 @@
 package com.lgy.member_oracle_practice.service;
 
-public class MemService
-{
+import org.springframework.ui.Model;
 
+public interface MemService
+{
+	public int excute(Model model); 
 }

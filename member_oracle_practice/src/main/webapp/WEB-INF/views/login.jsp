@@ -7,14 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form>
-		<table>
+	<form method ="post" action="login_yn">
+		<table border="1" align ="center">
 			<tr>
 				<td>
 					사용자 ID
 				</td>
 				<td>
-					<input type="text">
+					<input type="text" name="mem_uid">
 				</td>
 			</tr>
 			<tr>
@@ -22,7 +22,7 @@
 					비밀번호
 				</td>
 				<td>
-					<input type="password">
+					<input type="password" name ="mem_pwd">
 				</td>
 			</tr>
 			<tr>

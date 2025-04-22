@@ -9,23 +9,38 @@ import org.springframework.ui.Model;
 
 import com.lgy.member_oracle.dao.MemDAO;
 
-@Service
+@Service  // ÀÌ Å¬·¡½º°¡ ¼­ºñ½º ¿ªÇÒÀÓÀ» Spring¿¡°Ô ¾Ë·ÁÁÖ´Â ¾î³ëÅ×ÀÌ¼Ç (ÀÚµ¿ µî·ÏµÊ)
 public class MemLoginService implements MemService
 {
-
+	/**
+	 * ·Î±×ÀÎ Ã³¸®¸¦ À§ÇÑ ¸Ş¼­µå
+	 * ÄÁÆ®·Ñ·¯¿¡¼­ ³Ñ±ä model ¾È¿¡ µé¾î ÀÖ´Â request °´Ã¼·ÎºÎÅÍ »ç¿ëÀÚ ÀÔ·Â°ªÀ» ²¨³»¼­
+	 * DAO¸¦ ÅëÇØ DB¿¡ ·Î±×ÀÎ ¿©ºÎ¸¦ È®ÀÎÇÑ ÈÄ, °á°ú(int)¸¦ ¹İÈ¯
+	 *
+	 * @param model JSP¿¡¼­ ³Ñ°Ü¹ŞÀº »ç¿ëÀÚ ÀÔ·Â°ª(HttpServletRequest Æ÷ÇÔ)
+	 * @return ·Î±×ÀÎ ¼º°ø ¿©ºÎ¸¦ int·Î ¹İÈ¯ (1: ¼º°ø, 0: ºñ¹ø Æ²¸², -1: ¾ÆÀÌµğ ¾øÀ½)
+	 */
 	@Override
 	public int excute(Model model)
 	{
+		// model ¾È¿¡ ÀÖ´Â °ªµéÀ» Map Çü½ÄÀ¸·Î º¯È¯
 		Map<String, Object> map = model.asMap();
+
+		// model¿¡ ´ã°ÜÀÖ´ø request °´Ã¼¸¦ ²¨³»¼­ »ç¿ë (ÄÁÆ®·Ñ·¯¿¡¼­ addAttribute·Î ³Ñ±è)
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
-		String mId = request.getParameter("mem_uid");
-		String mPw = request.getParameter("mem_pwd");
+		// »ç¿ëÀÚ·ÎºÎÅÍ ÀÔ·Â¹ŞÀº ¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£¸¦ °¡Á®¿È
+		String mId = request.getParameter("mem_uid");  // Æû name="mem_uid"
+		String mPw = request.getParameter("mem_pwd");  // Æû name="mem_pwd"
+
+		// DB ÀÛ¾÷À» À§ÇØ DAO °´Ã¼ »ı¼º
 		MemDAO dao = new MemDAO();
+
+		// DAOÀÇ loginYn() ¸Ş¼­µå¸¦ È£ÃâÇÏ¿© ·Î±×ÀÎ ¿©ºÎ È®ÀÎ
+		// °á°ú´Â 1(¼º°ø), 0(ºñ¹Ğ¹øÈ£ Æ²¸²), -1(¾ÆÀÌµğ ¾øÀ½)
 		int re = dao.loginYn(mId, mPw);
 
-//		ì»¨íŠ¸ë¡¤ëŸ¬ì— re ì „ë‹¬(0,1,-1)
+		// ÄÁÆ®·Ñ·¯¿¡ °á°ú°ª Àü´Ş
 		return re;
 	}
-
 }
