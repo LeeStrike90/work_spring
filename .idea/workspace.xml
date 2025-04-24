@@ -20,7 +20,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/test" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -40,6 +40,7 @@
       <workItem from="1745410192809" duration="64000" />
       <workItem from="1745410278434" duration="801000" />
       <workItem from="1745411867787" duration="236000" />
+      <workItem from="1745414782552" duration="33000" />
     </task>
     <servers />
   </component>
